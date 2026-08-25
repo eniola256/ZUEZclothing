@@ -1,0 +1,63 @@
+.hero {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0 40px;
+    overflow: hidden;
+    width: 100%;
+    
+}
+.hero h1 {
+  font-size: clamp(3rem, 25vw, 21rem);
+  position: relative;
+  display: inline-block;
+}
+
+.hero h1::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 10%;
+  width: 100%;
+  height: 4px;
+  background: currentColor;
+}
+
+.hero-content {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+  padding-top: 0;
+  width: 100%;
+}
+
+.hero-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.hero-about {
+  max-width: 420px;
+}
+
+.hero-about p {
+  text-transform: none;
+  letter-spacing: normal;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.hero span, p{
+    font-weight: 550;
+}
+@media (max-width: 480px){
+  .hero-content{
+    z-index: 999;
+  }
+}

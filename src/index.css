@@ -1,0 +1,32 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body{
+  font-family: "Anton", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+:root[data-theme="dark"] {
+  --bg: #000000;
+  --text: #FFFFFF;
+}
+
+:root[data-theme="blue"] {
+  --bg: #000000;
+  --text: #60A5FA;
+}
+
+:root[data-theme="light"] {
+  --bg: #FFFFFF;
+  --text: #000000;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  transition: background 0.2s ease, color 0.2s ease;
+}
