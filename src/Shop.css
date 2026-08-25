@@ -76,7 +76,7 @@
   position: relative;
   aspect-ratio: 3 / 4;
   overflow: hidden;
-  background: url("./cloth-bg.jpg");
+  background:url("/cloth-bg.jpg");
   z-index: 2; /* placeholder until real images are added */
 }
 
