@@ -1,8 +1,9 @@
+
 import "./Hero.css";
 
-function Hero() {
+function Hero({ isLoading }) {
   return (
-    <div className="hero">
+    <div className={`hero ${isLoading ? "hero-loading" : "hero-ready"}`}>
       <h1 className="hero-title">
         <span className="hero-letter">L</span>
 
@@ -29,10 +30,16 @@ function Hero() {
 
         <div className="hero-col hero-about">
           <span>ABOUT</span>
-            <p className="hero-description">
-              <span>A one-person portfolio drop. Built to test how far</span>
-              <span>restraint, contrast and a single color can carry a storefront.</span>
-            </p>
+
+          <p className="hero-description">
+            <span>
+              A one-person portfolio drop. Built to test how far
+            </span>
+
+            <span>
+              restraint, contrast and a single color can carry a storefront.
+            </span>
+          </p>
         </div>
 
         <div className="hero-col">

@@ -4,12 +4,50 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
-  padding: 0 40px;
-
-  overflow: hidden;
   width: 100%;
+  padding: 0 20px;
+  overflow: hidden;
 }
+
+
+/* ============================
+   HERO LOADING STATE
+   ============================ */
+
+.hero-hidden {
+  opacity: 0;
+}
+
+.hero-loading .hero-letter,
+.hero-loading .hero-eyes {
+  transform: translateY(110%);
+  opacity: 0;
+  animation: none;
+}
+
+.hero-loading h1::before {
+  width: 0;
+  animation: none;
+}
+
+.hero-loading .hero-col > span,
+.hero-loading .hero-description > span {
+  transform: translateY(25px);
+  opacity: 0;
+  animation: none;
+}
+
+
+/* ============================
+   HERO READY
+   Animations begin only after
+   the loader is finished.
+   ============================ */
+
+.hero-ready {
+  opacity: 1;
+}
+
 
 /* ============================
    HERO TITLE
@@ -26,6 +64,7 @@
   overflow: hidden;
 }
 
+
 /* ============================
    TITLE SLIDE-IN
    ============================ */
@@ -36,38 +75,52 @@
 
   transform: translateY(110%);
   opacity: 0;
+}
 
+.hero-ready .hero-letter,
+.hero-ready .hero-eyes {
   animation: title-slide-up
     0.9s
     cubic-bezier(0.16, 1, 0.3, 1)
     forwards;
 }
 
+
 /* L */
-.hero-letter:nth-child(1) {
+
+.hero-ready .hero-letter:nth-child(1) {
   animation-delay: 0.1s;
 }
 
+
 /* OO */
-.hero-eyes {
+
+.hero-ready .hero-eyes {
   align-items: center;
   animation-delay: 0.25s;
 }
 
+
 /* K */
-.hero-letter:nth-child(3) {
+
+.hero-ready .hero-letter:nth-child(3) {
   animation-delay: 0.4s;
 }
 
+
 /* I */
-.hero-letter:nth-child(4) {
+
+.hero-ready .hero-letter:nth-child(4) {
   animation-delay: 0.55s;
 }
 
+
 /* T */
-.hero-letter:nth-child(5) {
+
+.hero-ready .hero-letter:nth-child(5) {
   animation-delay: 0.7s;
 }
+
 
 @keyframes title-slide-up {
   from {
@@ -80,6 +133,7 @@
     opacity: 1;
   }
 }
+
 
 /* ============================
    UNDERLINE
@@ -97,7 +151,9 @@
   height: 4px;
 
   background: currentColor;
+}
 
+.hero-ready h1::before {
   animation: underline-grow
     1.2s
     cubic-bezier(0.16, 1, 0.3, 1)
@@ -105,6 +161,7 @@
 
   animation-delay: 0.75s;
 }
+
 
 @keyframes underline-grow {
   from {
@@ -116,6 +173,7 @@
   }
 }
 
+
 /* ============================
    OWL EYES
    ============================ */
@@ -126,13 +184,6 @@
 
   transform: translateY(110%);
   opacity: 0;
-
-  animation: title-slide-up
-    0.9s
-    cubic-bezier(0.16, 1, 0.3, 1)
-    forwards;
-
-  animation-delay: 0.25s;
 }
 
 .owl-eye {
@@ -162,6 +213,7 @@
   background: var(--bg, #121110);
 }
 
+
 /* ============================
    OWL BLINK
    ============================ */
@@ -188,106 +240,116 @@
 
 
 /* ============================
-   HERO CONTENT ENTRANCE
+   HERO CONTENT
    ============================ */
 
 .hero-content {
   display: flex;
+
   justify-content: space-between;
+
   width: 100%;
+
   gap: 2rem;
+
   margin-top: 1.5rem;
+
   padding-top: 0;
 }
 
 .hero-col {
   display: flex;
+
   flex-direction: column;
+
   gap: 0.4rem;
 
   font-size: 0.8rem;
+
   letter-spacing: 0.06em;
+
   text-transform: uppercase;
 }
 
-/* Every line starts slightly below */
+
+/* ============================
+   CONTENT INITIAL STATE
+   ============================ */
 
 .hero-col > span,
 .hero-description > span {
   display: block;
 
   transform: translateY(25px);
-  opacity: 0;
 
+  opacity: 0;
+}
+
+
+/* ============================
+   CONTENT ANIMATION
+   ============================ */
+
+.hero-ready .hero-col > span,
+.hero-ready .hero-description > span {
   animation: hero-content-up
     0.8s
     cubic-bezier(0.16, 1, 0.3, 1)
     forwards;
 }
 
+
 /* ============================
    COLUMN 1
    ============================ */
 
-.hero-col:nth-child(1) > span:nth-child(1) {
+.hero-ready .hero-col:nth-child(1) > span:nth-child(1) {
   animation-delay: 1.55s;
 }
 
-.hero-col:nth-child(1) > span:nth-child(2) {
+.hero-ready .hero-col:nth-child(1) > span:nth-child(2) {
   animation-delay: 1.68s;
 }
+
 
 /* ============================
    COLUMN 2
    ============================ */
 
-.hero-col:nth-child(2) > span {
+.hero-ready .hero-col:nth-child(2) > span {
   animation-delay: 1.81s;
 }
 
+
 /* Paragraph line 1 */
-.hero-description > span:nth-child(1) {
+
+.hero-ready .hero-description > span:nth-child(1) {
   animation-delay: 1.94s;
 }
 
+
 /* Paragraph line 2 */
-.hero-description > span:nth-child(2) {
+
+.hero-ready .hero-description > span:nth-child(2) {
   animation-delay: 2.07s;
 }
+
 
 /* ============================
    COLUMN 3
    ============================ */
 
-.hero-col:nth-child(3) > span:nth-child(1) {
+.hero-ready .hero-col:nth-child(3) > span:nth-child(1) {
   animation-delay: 2.20s;
 }
 
-.hero-col:nth-child(3) > span:nth-child(2) {
+.hero-ready .hero-col:nth-child(3) > span:nth-child(2) {
   animation-delay: 2.33s;
 }
 
-/* ============================
-   PARAGRAPH
-   ============================ */
-
-.hero-description {
-  text-transform: none;
-  letter-spacing: normal;
-
-  font-size: 0.9rem;
-  line-height: 1.5;
-
-  opacity: 0.7;
-  margin: 0;
-
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-}
 
 /* ============================
-   ANIMATION
+   CONTENT ANIMATION
    ============================ */
 
 @keyframes hero-content-up {
@@ -302,19 +364,10 @@
   }
 }
 
+
 /* ============================
-   REDUCED MOTION
+   ABOUT
    ============================ */
-
-@media (prefers-reduced-motion: reduce) {
-  .hero-col > span,
-  .hero-description > span {
-    animation: none;
-    transform: none;
-    opacity: 1;
-  }
-}
-
 
 .hero-about {
   max-width: 420px;
@@ -339,13 +392,16 @@
   font-weight: 550;
 }
 
+
 /* ============================
    REDUCED MOTION
    ============================ */
 
 @media (prefers-reduced-motion: reduce) {
   .hero-letter,
-  .hero-eyes {
+  .hero-eyes,
+  .hero-col > span,
+  .hero-description > span {
     animation: none;
 
     transform: none;
@@ -364,11 +420,18 @@
   }
 }
 
+
 /* ============================
    MOBILE
    ============================ */
 
 @media (max-width: 480px) {
+  .hero {
+    min-height: 100svh;
+
+    padding: 0 20px;
+  }
+
   .hero-content {
     z-index: 999;
   }
