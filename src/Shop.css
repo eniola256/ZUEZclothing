@@ -6,92 +6,71 @@
   padding: 2rem;
 }
 
+/* ============================
+   PRODUCT
+   ============================ */
+
 .product {
   display: flex;
   flex-direction: column;
   gap: 0.6rem;
 }
 
-/* row 1: t1, t2, t3, t4 — plain aligned row, no stagger */
-.product:nth-child(2) {
-  margin-top: 3rem;
-}
-.product:nth-child(3) {
-  margin-top: 1rem;
-}
-
-/* section 2 starts here, pushed down with extra space */
-.product:nth-child(5) {
-  margin-top: 6rem;
-  height: 400px;
-  width: 300px;
-}
-.product:nth-child(6) {
-  margin-top: 6rem;
-  height: 270px;
-  width: 250px;
-}
-
-/* t7: wide + tall featured piece (like "Gridlocked"), spans 2 columns and 2 rows */
-.product:nth-child(7) {
-  grid-column: 3 / 5;
-  margin-top: 6rem;
-  height: 600px;
-}
-.product:nth-child(7) .product-image {
-  aspect-ratio: 4 / 5;
-}
-
-.product:nth-child(8) .product-image {
-  height: 300px;
-}
-.product:nth-child(9) .product-image {
-  height: 500px;
-}
-.product:nth-child(10) .product-image {
-  height: 300px;
-}
-
-/* t11: tall featured piece (like "Positive Space"), new section, pushed down */
-.product:nth-child(11) {
-  grid-column: 1 / 2;
-  grid-row: span 2;
-  margin-top: 8rem;
-}
-.product:nth-child(11) .product-image {
-  aspect-ratio: 3 / 5;
-}
-
-/* t12, t13 sit beside it, skipping col2, offset down to roughly meet it */
-.product:nth-child(12) {
-  grid-column: 3 / 4;
-  margin-top: 10rem;
-}
-.product:nth-child(13) {
-  grid-column: 4 / 5;
-  margin-top: 10rem;
-}
+/* ============================
+   IMAGE
+   ============================ */
 
 .product-image {
   position: relative;
   aspect-ratio: 3 / 4;
   overflow: hidden;
-  background:url("/cloth-bg.jpg");
-  z-index: 2; /* placeholder until real images are added */
+  background: url("/cloth-bg.jpg");
+  z-index: 2;
 }
 
-.product-image img {
+/* Main image starts outside the left side */
+.product-image .img-bg {
   position: absolute;
   inset: 0;
+
   width: 100%;
   height: 100%;
+
   object-fit: cover;
+
+  transform: translateX(-60px);
+
+  transition:
+    transform 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+
+  opacity: 0;
 }
 
-/* hover image sits on top, fades in on hover */
-.img-hover {
+/* When image enters viewport */
+.product-image.in-view .img-bg {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+/* ============================
+   HOVER IMAGE
+   ============================ */
+
+.product-image .img-hover {
+  position: absolute;
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
   opacity: 0;
-  transition: opacity 0.5s ease;
+
+  transition:
+    opacity 0.5s ease,
+    transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .product:hover .img-hover {
@@ -99,25 +78,158 @@
   background: #d9d9d9;
 }
 
-.product-info {
-  display: flex;
-  justify-content: space-between;
-  font-size: 0.95rem;
+/* ============================
+   DESKTOP IMAGE STAGGER
+   ============================ */
+
+/*
+  4-column layout:
+
+  1 → 0s
+  2 → 0.16s
+  3 → 0.32s
+  4 → 0.48s
+
+  Then the pattern starts again.
+*/
+
+.product:nth-child(1) .img-bg {
+  transition-delay: var(--desktop-delay);
 }
 
-.product-name {
-  font-weight: 600;
+.product:nth-child(2) .img-bg {
+  transition-delay: var(--desktop-delay);
+}
+
+.product:nth-child(3) .img-bg {
+  transition-delay: var(--desktop-delay);
+}
+
+.product:nth-child(4) .img-bg {
+  transition-delay: var(--desktop-delay);
+}
+
+.product:nth-child(5) .img-bg {
+  transition-delay: var(--desktop-delay);
+}
+
+.product:nth-child(6) .img-bg {
+  transition-delay: var(--desktop-delay);
+}
+
+.product:nth-child(7) .img-bg {
+  transition-delay: var(--desktop-delay);
+}
+
+.product:nth-child(8) .img-bg {
+  transition-delay: var(--desktop-delay);
+}
+
+.product:nth-child(9) .img-bg {
+  transition-delay: var(--desktop-delay);
+}
+
+.product:nth-child(10) .img-bg {
+  transition-delay: var(--desktop-delay);
+}
+
+.product:nth-child(11) .img-bg {
+  transition-delay: var(--desktop-delay);
+}
+
+.product:nth-child(12) .img-bg {
+  transition-delay: var(--desktop-delay);
+}
+
+.product:nth-child(13) .img-bg {
+  transition-delay: var(--desktop-delay);
 }
 
 /* ============================
-   TABLET — 2 columns, keep the featured pieces bigger,
-   drop the fixed px sizes so nothing overflows, keep some stagger
+   DESKTOP GRID POSITIONING
    ============================ */
+
+.product:nth-child(2) {
+  margin-top: 3rem;
+}
+
+.product:nth-child(3) {
+  margin-top: 1rem;
+}
+
+/* Section 2 */
+
+.product:nth-child(5) {
+  margin-top: 6rem;
+  height: 400px;
+  width: 300px;
+}
+
+.product:nth-child(6) {
+  margin-top: 6rem;
+  height: 270px;
+  width: 250px;
+}
+
+/* Wide featured piece */
+
+.product:nth-child(7) {
+  grid-column: 3 / 5;
+  margin-top: 6rem;
+  height: 600px;
+}
+
+.product:nth-child(7) .product-image {
+  aspect-ratio: 4 / 5;
+}
+
+.product:nth-child(8) .product-image {
+  height: 300px;
+}
+
+.product:nth-child(9) .product-image {
+  height: 500px;
+}
+
+.product:nth-child(10) .product-image {
+  height: 300px;
+}
+
+/* Tall featured piece */
+
+.product:nth-child(11) {
+  grid-column: 1 / 2;
+  grid-row: span 2;
+  margin-top: 8rem;
+}
+
+.product:nth-child(11) .product-image {
+  aspect-ratio: 3 / 5;
+}
+
+/* Products 12 & 13 */
+
+.product:nth-child(12) {
+  grid-column: 3 / 4;
+  margin-top: 10rem;
+}
+
+.product:nth-child(13) {
+  grid-column: 4 / 5;
+  margin-top: 10rem;
+}
+
+/* ============================
+   TABLET
+   ============================ */
+
 @media (max-width: 1024px) {
   .shop {
     grid-template-columns: repeat(2, 1fr);
     row-gap: 2.5rem;
   }
+
+  /* Reset desktop offsets */
 
   .product:nth-child(2),
   .product:nth-child(3) {
@@ -131,11 +243,14 @@
     margin-top: 0;
   }
 
+  /* Featured */
+
   .product:nth-child(7) {
-    grid-column: 1 / 3; /* full width featured banner */
+    grid-column: 1 / 3;
     height: auto;
     margin-top: 3rem;
   }
+
   .product:nth-child(7) .product-image {
     aspect-ratio: 16 / 9;
   }
@@ -147,29 +262,47 @@
     aspect-ratio: 3 / 4;
   }
 
+  /* Product 11 */
+
   .product:nth-child(11) {
     grid-column: 1 / 2;
     grid-row: auto;
     margin-top: 3rem;
   }
+
   .product:nth-child(11) .product-image {
     aspect-ratio: 3 / 4;
   }
+
+  /* Products 12 & 13 */
 
   .product:nth-child(12) {
     grid-column: 2 / 3;
     margin-top: 3rem;
   }
+
   .product:nth-child(13) {
     grid-column: 1 / 2;
     margin-top: 0;
   }
+
+  /* ============================
+     TABLET STAGGER
+     2 columns:
+
+     left  → 0s
+     right → 0.16s
+     ============================ */
+
+  .product .img-bg {
+    transition-delay: var(--mobile-delay);
+  }
 }
 
 /* ============================
-   MOBILE (<480px) — keep 2 columns, keep the stagger,
-   just drop desktop's fixed px sizes so nothing overflows
+   MOBILE
    ============================ */
+
 @media (max-width: 480px) {
   .shop {
     grid-template-columns: repeat(2, 1fr);
@@ -178,38 +311,43 @@
     padding: 1.25rem;
   }
 
-  /* t1–t4: plain aligned 2x2, like "Off by Design / Kerned Confidence"
-     then "Specimen No. HH01 / Grid System Go" */
+  /* t1–t4 */
+
   .product:nth-child(2),
   .product:nth-child(3) {
     margin-top: 0;
   }
 
-  /* t5, t6: side by side, t6 offset down a bit, like
-     "Neutral Grotesk" next to a taller "Red Dot Not Award" */
+  /* t5 */
+
   .product:nth-child(5) {
     margin-top: 3rem;
     height: auto;
     width: auto;
   }
+
+  /* t6 */
+
   .product:nth-child(6) {
     margin-top: 5rem;
     height: auto;
     width: auto;
   }
 
-  /* t7: full-width featured banner, like "Gridlocked" */
+  /* t7 */
+
   .product:nth-child(7) {
     grid-column: 1 / 3;
     height: auto;
     margin-top: 3rem;
   }
+
   .product:nth-child(7) .product-image {
     aspect-ratio: 4 / 5;
   }
 
-  /* t8, t9, t10: t8/t9 side by side, t10 wraps alone underneath —
-     matches "Hello Week 001/002" then "Monochrome Manifest" */
+  /* t8–t10 */
+
   .product:nth-child(8) .product-image,
   .product:nth-child(9) .product-image,
   .product:nth-child(10) .product-image {
@@ -217,23 +355,51 @@
     aspect-ratio: 3 / 4;
   }
 
-  /* t11: full-width tall featured piece, like "Positive Space" */
+  /* t11 */
+
   .product:nth-child(11) {
     grid-column: 1 / 3;
     grid-row: auto;
     margin-top: 4rem;
   }
+
   .product:nth-child(11) .product-image {
     aspect-ratio: 3 / 4;
   }
 
-  /* t12, t13: side by side, like "Whitespace Matters / Command + K" */
+  /* t12 & t13 */
+
   .product:nth-child(12) {
     grid-column: 1 / 2;
     margin-top: 3rem;
   }
+
   .product:nth-child(13) {
     grid-column: 2 / 3;
     margin-top: 3rem;
+  }
+
+  /* ============================
+     MOBILE STAGGER
+     ============================ */
+
+  .product .img-bg {
+    transition-delay: var(--mobile-delay);
+  }
+}
+
+/* ============================
+   REDUCED MOTION
+   ============================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .product-image .img-bg {
+    transform: none;
+    opacity: 1;
+    transition: none;
+  }
+
+  .product-image .img-hover {
+    transition: none;
   }
 }
