@@ -1,5 +1,16 @@
+
 .site-footer {
   padding: 4rem 2rem 2rem;
+}
+
+/* ============================
+   DIVIDERS
+   ============================ */
+
+.footer-divider,
+.footer-divide {
+  transform-origin: left center;
+  transform: scaleX(0);
 }
 
 .footer-divider {
@@ -7,11 +18,16 @@
   background: currentColor;
   margin: 3rem 0;
 }
-.footer-divide{
+
+.footer-divide {
   height: 1px;
   background: currentColor;
   margin: 1rem 0;
 }
+
+/* ============================
+   MAIN STATEMENT
+   ============================ */
 
 .footer-statement {
   display: flex;
@@ -24,48 +40,78 @@
   font-size: clamp(1.5rem, 6vw, 6.5rem);
   line-height: 0.95;
   margin: 0;
+
+  transform: translateY(45px);
+  opacity: 0;
 }
 
 .footer-copyright {
   display: flex;
   align-items: center;
+
   font-size: clamp(3rem, 10vw, 9rem);
   font-weight: 800;
   white-space: nowrap;
+
+  transform: translateY(45px);
+  opacity: 0;
 }
 
 .c-mark {
-  font-size: 0.5em;
   border-radius: 50%;
+
   display: inline-flex;
   align-items: center;
   justify-content: center;
+
   margin-right: 0.1em;
+
   font-size: clamp(3rem, 10vw, 9rem);
 }
 
+/* ============================
+   ABOUT
+   ============================ */
+
 .footer-about {
   max-width: 900px;
+
   font-size: 1.5rem;
   line-height: 1.4;
+
   margin: 15rem 0 0 0;
+
   font-weight: 400;
+
+  transform: translateY(45px);
+  opacity: 0;
 }
+
+/* ============================
+   FOOTER BOTTOM
+   ============================ */
 
 .footer-bottom {
   display: flex;
   flex-wrap: wrap;
+
   justify-content: space-between;
+
   gap: 2rem;
+
   font-weight: 400;
+
   padding-top: 1rem;
 }
 
-.footer-bottom a {
-  display: block;
-  color: inherit;
-  text-decoration: none;
+.footer-bottom > div {
+  transform: translateY(20px);
+  opacity: 0;
 }
+
+/* ============================
+   FOOTER COLUMNS
+   ============================ */
 
 .footer-brand,
 .footer-address,
@@ -76,5 +122,198 @@
 }
 
 .brand-name {
-  font-weight: 800;
+  font-weight: 600;
+}
+
+/* ============================
+   LINKS
+   ============================ */
+
+.footer-bottom a {
+  display: block;
+
+  color: inherit;
+  text-decoration: none;
+
+  transition: opacity 0.3s ease;
+}
+
+.footer-bottom a:hover {
+  opacity: 0.5;
+}
+
+/* ============================
+   SCROLL ANIMATION
+   ============================ */
+
+.site-footer.is-visible .footer-divider {
+  animation: footer-line-grow
+    1.2s
+    cubic-bezier(0.16, 1, 0.3, 1)
+    forwards;
+
+  animation-delay: 0s;
+}
+
+.site-footer.is-visible .footer-statement h2 {
+  animation: footer-slide-up
+    1s
+    cubic-bezier(0.16, 1, 0.3, 1)
+    forwards;
+
+  animation-delay: 0.2s;
+}
+
+.site-footer.is-visible .footer-copyright {
+  animation: footer-slide-up
+    1s
+    cubic-bezier(0.16, 1, 0.3, 1)
+    forwards;
+
+  animation-delay: 0.35s;
+}
+
+.site-footer.is-visible .footer-about {
+  animation: footer-slide-up
+    1s
+    cubic-bezier(0.16, 1, 0.3, 1)
+    forwards;
+
+  animation-delay: 0.5s;
+}
+
+.site-footer.is-visible .footer-divide {
+  animation: footer-line-grow
+    1.2s
+    cubic-bezier(0.16, 1, 0.3, 1)
+    forwards;
+
+  animation-delay: 0.65s;
+}
+
+/* ============================
+   BOTTOM STAGGER
+   ============================ */
+
+.site-footer.is-visible .footer-brand {
+  animation: footer-small-up
+    0.8s
+    cubic-bezier(0.16, 1, 0.3, 1)
+    forwards;
+
+  animation-delay: 0.8s;
+}
+
+.site-footer.is-visible .footer-address {
+  animation: footer-small-up
+    0.8s
+    cubic-bezier(0.16, 1, 0.3, 1)
+    forwards;
+
+  animation-delay: 0.9s;
+}
+.footer-about span{
+  font-weight: 600;
+}
+.site-footer.is-visible .footer-legal {
+  animation: footer-small-up
+    0.8s
+    cubic-bezier(0.16, 1, 0.3, 1)
+    forwards;
+
+  animation-delay: 1s;
+}
+
+.site-footer.is-visible .footer-links:nth-of-type(4) {
+  animation: footer-small-up
+    0.8s
+    cubic-bezier(0.16, 1, 0.3, 1)
+    forwards;
+
+  animation-delay: 1.1s;
+}
+
+.site-footer.is-visible .footer-links:nth-of-type(5) {
+  animation: footer-small-up
+    0.8s
+    cubic-bezier(0.16, 1, 0.3, 1)
+    forwards;
+
+  animation-delay: 1.2s;
+}
+
+.site-footer.is-visible .footer-links:nth-of-type(6) {
+  animation: footer-small-up
+    0.8s
+    cubic-bezier(0.16, 1, 0.3, 1)
+    forwards;
+
+  animation-delay: 1.3s;
+}
+
+/* ============================
+   KEYFRAMES
+   ============================ */
+
+@keyframes footer-line-grow {
+  from {
+    transform: scaleX(0);
+  }
+
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes footer-slide-up {
+  from {
+    transform: translateY(45px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes footer-small-up {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+
+/* ============================
+   REDUCED MOTION
+   ============================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .footer-divider,
+  .footer-divide {
+    transform: scaleX(1);
+  }
+
+  .footer-statement h2,
+  .footer-copyright,
+  .footer-about,
+  .footer-bottom > div {
+    transform: none;
+    opacity: 1;
+  }
+
+  .site-footer.is-visible .footer-divider,
+  .site-footer.is-visible .footer-divide,
+  .site-footer.is-visible .footer-statement h2,
+  .site-footer.is-visible .footer-copyright,
+  .site-footer.is-visible .footer-about,
+  .site-footer.is-visible .footer-bottom > div {
+    animation: none;
+  }
 }

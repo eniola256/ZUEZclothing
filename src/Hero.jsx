@@ -29,10 +29,10 @@ function Hero() {
 
         <div className="hero-col hero-about">
           <span>ABOUT</span>
-          <p>
-            A one-person portfolio drop. Built to test how far restraint,
-            contrast and a single color can carry a storefront.
-          </p>
+            <p className="hero-description">
+              <span>A one-person portfolio drop. Built to test how far</span>
+              <span>restraint, contrast and a single color can carry a storefront.</span>
+            </p>
         </div>
 
         <div className="hero-col">
