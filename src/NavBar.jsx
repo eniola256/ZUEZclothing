@@ -1,43 +1,30 @@
-"use client";
-import { useState, useEffect } from "react";
 import "./NavBar.css";
+import { CATEGORIES } from "./products.js";
 
-const THEMES = [
-  { id: "dark", label: "Black / White" },
-  { id: "light", label: "White / Black" },
-  { id: "blue", label: "Black / Blue" },
-];
-
-function NavBar() {
-  const [theme, setTheme] = useState("dark");
-
-  useEffect(() => {
-    document.documentElement.setAttribute("data-theme", theme);
-  }, [theme]);
-
+function NavBar({ filter, onFilter }) {
   return (
-    <nav>
-      <div className="logo">
-        <span className="material-symbols-outlined">owl</span>
-      </div>
-      <div className="nav-contents">
-        <div className="nav-links">
-          <a href="#">Shop</a>
-          <a href="#">Bag</a>
-        </div>
-        <div className="theme">
-          {THEMES.map((t) => (
+    <nav className="nav" aria-label="Shop categories">
+      <ul className="nav-filters">
+        {CATEGORIES.map((c) => (
+          <li key={c.id}>
             <button
-              key={t.id}
-              onClick={() => setTheme(t.id)}
-              aria-label={t.label}
-              aria-pressed={theme === t.id}
-              className={`theme-swatch swatch-${t.id} ${theme === t.id ? "active" : ""}`}
-            />
-          ))}
-        </div>
-      </div>
+              type="button"
+              onClick={() => onFilter(c.id)}
+              aria-pressed={filter === c.id}
+              className={`nav-filter ${filter === c.id ? "active" : ""}`}
+            >
+              {c.label}
+            </button>
+          </li>
+        ))}
+      </ul>
+
+      <button type="button" className="nav-bag">
+        <span className="nav-dot" aria-hidden="true" />
+        Bag
+      </button>
     </nav>
   );
 }
+
 export default NavBar;

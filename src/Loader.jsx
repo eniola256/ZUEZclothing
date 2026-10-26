@@ -1,59 +1,27 @@
-
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import "./Loader.css";
 
 function Loader({ onComplete }) {
-  const words = ["GOOD", "BOLD", "IT"];
-
-  const [wordIndex, setWordIndex] = useState(0);
-  const [isExiting, setIsExiting] = useState(false);
-
   useEffect(() => {
-    const changeWord = (nextIndex, delay) => {
-      return setTimeout(() => {
-        setIsExiting(true);
-
-        setTimeout(() => {
-          setWordIndex(nextIndex);
-          setIsExiting(false);
-        }, 280);
-      }, delay);
-    };
-
-    const firstChange = changeWord(1, 900);
-    const secondChange = changeWord(2, 1750);
-
-    const finish = setTimeout(() => {
-      onComplete();
-    }, 2700);
-
-    return () => {
-      clearTimeout(firstChange);
-      clearTimeout(secondChange);
-      clearTimeout(finish);
-    };
+    const finish = setTimeout(onComplete, 2700);
+    return () => clearTimeout(finish);
   }, [onComplete]);
 
   return (
-    <div className="loader">
+    <div className="loader" role="status" aria-label="Loading ZUEZ">
+      <div className="loader-flash" aria-hidden="true" />
+
       <div className="loader-content">
-
-        <div className="loader-word">
-          <span className="loader-look">LOOK</span>
-
-          <span
-            className={`loader-changing-word ${
-              isExiting ? "word-exit" : ""
-            }`}
-          >
-            {words[wordIndex]}
-          </span>
+        <div className="loader-word" aria-hidden="true">
+          ZUEZ
+          <svg viewBox="0 0 100 100" preserveAspectRatio="none" focusable="false">
+            <polyline points="56,0 47,42 57,44 44,100" />
+          </svg>
         </div>
 
         <div className="loader-bar">
           <div className="loader-progress" />
         </div>
-
       </div>
     </div>
   );

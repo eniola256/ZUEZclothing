@@ -317,3 +317,29 @@
     animation: none;
   }
 }
+
+
+/* ============================
+   STORM EDITORIAL
+   Bone footer with serif statement
+   ============================ */
+
+.site-footer {
+  background: var(--bone);
+  color: var(--ink);
+}
+
+.footer-statement h2 {
+  font-family: var(--serif);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+}
+
+.footer-statement h2 em {
+  font-style: italic;
+}
+
+.footer-copyright {
+  font-family: var(--serif);
+  font-weight: 700;
+}

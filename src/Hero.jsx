@@ -1,53 +1,51 @@
-
 import "./Hero.css";
 
 function Hero({ isLoading }) {
   return (
-    <div className={`hero ${isLoading ? "hero-loading" : "hero-ready"}`}>
-      <h1 className="hero-title">
-        <span className="hero-letter">L</span>
-
-        <span className="hero-eyes">
-          <span className="owl-eye">
-            <span className="owl-pupil" />
-          </span>
-
-          <span className="owl-eye">
-            <span className="owl-pupil" />
-          </span>
-        </span>
-
-        <span className="hero-letter">K</span>
-        <span className="hero-letter">I</span>
-        <span className="hero-letter">T</span>
-      </h1>
-
-      <div className="hero-content">
-        <div className="hero-col">
-          <span>LOOKIT</span>
-          <span>© 2026</span>
-        </div>
-
-        <div className="hero-col hero-about">
-          <span>ABOUT</span>
-
-          <p className="hero-description">
-            <span>
-              A one-person portfolio drop. Built to test how far
+    <header className={`hero ${isLoading ? "hero-loading" : "hero-ready"}`}>
+      <div className="hero-mast">
+        <h1 className="hero-title" aria-label="ZUEZ">
+          {"ZUEZ".split("").map((letter, i) => (
+            <span className="hero-mask" key={i} aria-hidden="true">
+              <span className="hero-letter">{letter}</span>
             </span>
+          ))}
+        </h1>
 
-            <span>
-              restraint, contrast and a single color can carry a storefront.
-            </span>
-          </p>
-        </div>
-
-        <div className="hero-col">
-          <span>FAQ</span>
-          <span>CONTACT</span>
-        </div>
+        <svg
+          className="hero-bolt"
+          viewBox="0 0 100 100"
+          preserveAspectRatio="none"
+          aria-hidden="true"
+          focusable="false"
+        >
+          <polyline points="56,0 47,42 57,44 44,100" />
+        </svg>
       </div>
-    </div>
+
+      <div className="hero-strip">
+        <span>Issue 001</span>
+        <span>The Current</span>
+        <span>Thirteen pieces</span>
+      </div>
+
+      <div className="hero-cover">
+        <span className="kicker">Cover story</span>
+
+        <p className="hero-headline">
+          Baggy, <em>charged,</em> unbothered.
+        </p>
+
+        <p className="hero-blurb">
+          Drop 001 is thirteen pieces cut loose and built to be seen from
+          across the street.
+        </p>
+
+        <a className="hero-link" href="#shop">
+          Shop the issue
+        </a>
+      </div>
+    </header>
   );
 }
 

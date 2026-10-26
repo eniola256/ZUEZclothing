@@ -35,7 +35,7 @@ function Footer() {
         <h2>
           Made to be worn.
           <br />
-          Or judged. Or both.
+          <em>Charged to be seen.</em>
         </h2>
 
         <div className="footer-copyright">

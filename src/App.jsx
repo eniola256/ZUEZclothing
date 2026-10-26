@@ -1,5 +1,4 @@
-
-import { useState } from "react";
+import { useState, useCallback } from "react";
 
 import NavBar from "./NavBar.jsx";
 import Hero from "./Hero.jsx";
@@ -9,18 +8,28 @@ import Loader from "./Loader.jsx";
 
 function App() {
   const [loading, setLoading] = useState(true);
+  const [filter, setFilter] = useState("all");
+
+  const handleLoaded = useCallback(() => setLoading(false), []);
+
+  const handleFilter = useCallback((id) => {
+    setFilter(id);
+    requestAnimationFrame(() => {
+      document
+        .getElementById("shop")
+        ?.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  }, []);
 
   return (
     <>
-      {loading && (
-        <Loader onComplete={() => setLoading(false)} />
-      )}
+      {loading && <Loader onComplete={handleLoaded} />}
 
-      <NavBar />
+      <NavBar filter={filter} onFilter={handleFilter} />
 
       <Hero isLoading={loading} />
 
-      <Shop />
+      <Shop filter={filter} onFilter={handleFilter} />
 
       <Footer />
     </>

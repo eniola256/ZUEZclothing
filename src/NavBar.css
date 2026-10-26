@@ -1,62 +1,72 @@
-nav {
+.nav {
   position: sticky;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 16px;
-  background-color: var(--nav-background);
-  color: var(--nav-text);
+  top: 0;
   z-index: 1000;
-}
-.nav-contents {
+
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 106px;
-}
-.logo span {
-  font-size: 40px;
+  gap: 1rem;
+
+  min-height: 56px;
+  padding: 0 1.25rem;
+
+  background: rgba(17, 17, 17, 0.88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--line);
+
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
 }
 
-.nav-links {
+.nav-filters {
   display: flex;
-  gap: 35px;
+  list-style: none;
+  margin-left: -0.9rem;
+  overflow-x: auto;
+  scrollbar-width: none;
 }
 
-.nav-links a {
-  text-decoration: none;
-  color: var(--nav-text);
+.nav-filters::-webkit-scrollbar {
+  display: none;
+}
+
+.nav-filter {
+  min-height: 44px;
+  padding: 0 0.9rem;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  white-space: nowrap;
   transition: color 0.2s ease;
-  font-size: 20px;
 }
 
+.nav-filter:hover,
+.nav-filter.active {
+  color: var(--flash);
+}
 
-.theme {
+.nav-filter.active {
+  text-decoration: underline;
+  text-underline-offset: 0.55em;
+  text-decoration-thickness: 1px;
+}
+
+.nav-bag {
   display: flex;
-  gap: 8px;
+  flex: none;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  letter-spacing: inherit;
+  text-transform: inherit;
 }
 
-.theme-swatch {
-  width: 22px;
-  height: 22px;
+.nav-dot {
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
-  border: 2px solid transparent;
-  padding: 0;
-  cursor: pointer;
-}
-/* edit colors here */
-.swatch-dark {
-  background: #000000;
-  border:1px solid #7a7a7a;
-}
-
-.swatch-light {
-  background: #FFFFFF;
-  border:1px solid #696969;
-}
-
-.swatch-blue {
-  background: #60A5FA;
-  border:1px solid #3590ff;
+  background: var(--flash);
 }
