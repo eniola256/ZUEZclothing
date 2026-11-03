@@ -65,3 +65,24 @@ button {
     scroll-behavior: auto;
   }
 }
+
+/* loading / error messages */
+.status-msg {
+  display: grid;
+  gap: 1rem;
+  justify-items: start;
+  padding: 3rem 0;
+  font-size: 0.95rem;
+  color: var(--muted);
+}
+
+.status-retry {
+  min-height: 44px;
+  padding: 0 1.5rem;
+  background: var(--bone);
+  color: var(--ink);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}

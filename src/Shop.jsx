@@ -1,13 +1,18 @@
 import { useEffect, useRef } from "react";
 import "./Shop.css";
-import { CATEGORIES, PRODUCTS, matchesFilter } from "./products.js";
+import { CATEGORIES, matchesFilter } from "./products.js";
+import { useProducts } from "./productsState.js";
+import { useCurrency } from "./currencyState.js";
+import { productHref } from "./useRoute.js";
 
 const pad = (n) => String(n).padStart(2, "0");
 
 function Shop({ filter, onFilter }) {
   const shopRef = useRef(null);
+  const { status, products, error, retry } = useProducts();
+  const { money, priceOf } = useCurrency();
 
-  const visible = PRODUCTS.filter((p) => matchesFilter(p, filter));
+  const visible = products.filter((p) => matchesFilter(p, filter));
   const isCollage = filter === "all";
   const title =
     filter === "all"
@@ -36,12 +41,13 @@ function Shop({ filter, onFilter }) {
     images.forEach((image) => observer.observe(image));
 
     return () => observer.disconnect();
-  }, [filter]);
+  }, [filter, status]);
 
   const renderProduct = (product, index) => (
-    <div
-      className={`product p-${product.id}`}
+    <a
+      className={`product p-${index + 1}`}
       key={product.id}
+      href={productHref(product.id)}
       style={{ "--delay": `${(index % 3) * 0.12}s` }}
     >
       <div className="product-image">
@@ -56,14 +62,10 @@ function Shop({ filter, onFilter }) {
       </div>
 
       <div className="product-info">
-        <span className="product-name">
-          <span className="product-no">No. {pad(product.id)}</span>
-          {" — "}
-          {product.name}
-        </span>
-        <span className="product-price">{product.price}</span>
+        <span className="product-name">{product.name}</span>
+        <span className="product-price">{money(priceOf(product))}</span>
       </div>
-    </div>
+    </a>
   );
 
   return (
@@ -71,26 +73,35 @@ function Shop({ filter, onFilter }) {
       <section className="shop" id="shop" ref={shopRef}>
         <div className="shop-head">
           <h2 className="shop-title">{title}</h2>
-          <span className="shop-count">{pad(visible.length)} pieces</span>
+          {status === "ready" && (
+            <span className="shop-count">{pad(visible.length)} pieces</span>
+          )}
         </div>
 
-        <div className={`shop-grid ${isCollage ? "is-collage" : "is-list"}`}>
-          {visible.flatMap((product, index) => {
-            const item = renderProduct(product, index);
+        {status === "loading" && (
+          <p className="status-msg" role="status">
+            Loading the collection… the first visit can take a few seconds.
+          </p>
+        )}
 
-            // pull quote sits in the collage after the 4th piece
-            if (isCollage && product.id === 4) {
-              return [
-                item,
-                <blockquote className="shop-quote" key="quote">
-                  Every storm starts quiet.
-                </blockquote>,
-              ];
-            }
+        {status === "error" && (
+          <div className="status-msg" role="alert">
+            <p>{error}</p>
+            <button type="button" className="status-retry" onClick={retry}>
+              Try again
+            </button>
+          </div>
+        )}
 
-            return [item];
-          })}
-        </div>
+        {status === "ready" && visible.length === 0 && (
+          <p className="status-msg">Nothing here yet.</p>
+        )}
+
+        {status === "ready" && (
+          <div className={`shop-grid ${isCollage ? "is-collage" : "is-list"}`}>
+            {visible.map(renderProduct)}
+          </div>
+        )}
       </section>
 
       <section className="index" aria-labelledby="index-title">
@@ -100,7 +111,7 @@ function Shop({ filter, onFilter }) {
 
         <div className="index-list">
           {CATEGORIES.filter((c) => c.id !== "all").map((c) => {
-            const count = PRODUCTS.filter((p) => matchesFilter(p, c.id)).length;
+            const count = products.filter((p) => matchesFilter(p, c.id)).length;
 
             return (
               <button

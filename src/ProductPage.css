@@ -1,0 +1,459 @@
+.pdp {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 1rem 1.25rem 5rem;
+}
+
+.pdp-back {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--muted);
+  transition: color 0.2s ease;
+}
+
+.pdp-back:hover {
+  color: var(--flash);
+}
+
+.pdp-grid {
+  display: grid;
+  gap: 2rem;
+  margin-top: 0.5rem;
+}
+
+/* ============================
+   GALLERY
+   ============================ */
+
+.gallery-stage {
+  position: relative;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  background: url("/cloth-bg.jpg") center / cover;
+}
+
+.gallery-track {
+  position: absolute;
+  inset: 0;
+}
+
+.slide {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* fade: every style is stacked, the active one is visible */
+.gallery--fade .slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+.gallery--fade .slide.is-active {
+  opacity: 1;
+}
+
+/* slide: the styles sit side by side and the strip moves */
+.gallery--slide .gallery-track {
+  display: flex;
+  transform: translateX(calc(var(--i) * -100%));
+  transition: transform 0.9s var(--ease);
+}
+
+.gallery--slide .slide {
+  flex: 0 0 100%;
+}
+
+.gallery-mode {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin-top: 0.5rem;
+
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.gallery-mode span {
+  margin-right: 0.5rem;
+}
+
+.gallery-mode button {
+  min-height: 44px;
+  padding: 0 0.75rem;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  color: var(--muted);
+}
+
+.gallery-mode button.active {
+  color: var(--flash);
+  text-decoration: underline;
+  text-underline-offset: 0.5em;
+  text-decoration-thickness: 1px;
+}
+
+/* ============================
+   DETAILS
+   ============================ */
+
+.pdp-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.pdp-title {
+  margin-top: 0.75rem;
+
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(2.5rem, 6vw, 4.25rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.pdp-price {
+  margin-top: 1rem;
+  font-size: 1.1rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+}
+
+.pdp-desc {
+  max-width: 44ch;
+  margin-top: 1rem;
+
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #C9C4BA;
+}
+
+.pdp-field {
+  width: 100%;
+  margin-top: 1.75rem;
+  padding: 0;
+  border: 0;
+}
+
+.pdp-field legend,
+.pdp-legend {
+  display: block;
+  margin-bottom: 0.6rem;
+  padding: 0;
+
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.pdp-field legend span {
+  margin-left: 0.5rem;
+  color: var(--text);
+}
+
+/* ============================
+   STYLE SWATCHES
+   ============================ */
+
+.swatches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.swatch {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+
+  border: 1px solid var(--line);
+  transition: border-color 0.2s ease;
+}
+
+.swatch--color {
+  border-radius: 50%;
+}
+
+.swatch--text {
+  padding: 0 1rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.swatch-dot {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 1px solid rgba(232, 228, 220, 0.35);
+}
+
+.swatch:hover {
+  border-color: var(--muted);
+}
+
+.swatch.is-selected {
+  border-color: var(--flash);
+  color: var(--flash);
+}
+
+/* ============================
+   SIZES
+   ============================ */
+
+.sizes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.size {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 56px;
+  min-height: 44px;
+  padding: 0 0.75rem;
+
+  border: 1px solid var(--line);
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.size input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.size:hover {
+  border-color: var(--muted);
+}
+
+.size:focus-within {
+  outline: 2px solid var(--flash);
+  outline-offset: 3px;
+}
+
+.size.is-selected {
+  background: var(--bone);
+  border-color: var(--bone);
+  color: var(--ink);
+}
+
+.size.is-out {
+  color: var(--line);
+  text-decoration: line-through;
+  cursor: not-allowed;
+}
+
+.size.is-out input {
+  cursor: not-allowed;
+}
+
+.pdp-onesize {
+  margin-top: 1.75rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.pdp-error {
+  margin-top: 0.75rem;
+  font-size: 0.85rem;
+  color: #FF9E9E;
+}
+
+/* ============================
+   AMOUNT
+   ============================ */
+
+.qty {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--line);
+}
+
+.qty button {
+  width: 44px;
+  height: 44px;
+  font-size: 1.1rem;
+  transition: color 0.2s ease;
+}
+
+.qty button:hover:not(:disabled) {
+  color: var(--flash);
+}
+
+.qty button:disabled {
+  color: var(--line);
+  cursor: not-allowed;
+}
+
+.qty output {
+  min-width: 2.5rem;
+  text-align: center;
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+/* ============================
+   ADD TO BAG
+   ============================ */
+
+.pdp-add {
+  width: 100%;
+  min-height: 56px;
+  margin-top: 2rem;
+  padding: 0 1.5rem;
+
+  background: var(--bone);
+  color: var(--ink);
+
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  transition: background 0.2s ease;
+}
+
+.pdp-add:hover {
+  background: var(--flash);
+}
+
+/* ============================
+   MORE FROM THE ISSUE
+   ============================ */
+
+.related {
+  margin-top: 6rem;
+}
+
+.related-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem 1rem;
+  margin-top: 1rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--line);
+}
+
+.related-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  text-decoration: none;
+  color: inherit;
+}
+
+.related-img {
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  background: url("/cloth-bg.jpg") center / cover;
+}
+
+.related-img img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.related-card:hover .related-img img {
+  animation: flash 0.6s ease-out;
+}
+
+.related-info {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  line-height: 1.4;
+  color: var(--muted);
+}
+
+.related-name {
+  color: var(--text);
+}
+
+/* ============================
+   DESKTOP: gallery left, details right
+   ============================ */
+
+@media (min-width: 900px) {
+  .pdp {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+
+  .pdp-grid {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .gallery {
+    position: sticky;
+    top: 76px;
+  }
+
+  .pdp-info {
+    padding-top: 0.5rem;
+  }
+
+  .related-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem 1.5rem;
+  }
+}
+
+/* ============================
+   REDUCED MOTION
+   ============================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .gallery--fade .slide,
+  .gallery--slide .gallery-track {
+    transition: none;
+  }
+
+  .related-card:hover .related-img img {
+    animation: none;
+  }
+}

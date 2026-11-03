@@ -1,7 +1,12 @@
 import "./NavBar.css";
-import { CATEGORIES } from "./products.js";
+import { CATEGORIES, CURRENCIES } from "./products.js";
+import { useCart } from "./cartState.js";
+import { useCurrency } from "./currencyState.js";
 
 function NavBar({ filter, onFilter }) {
+  const { count, openCart } = useCart();
+  const { currency, setCurrency } = useCurrency();
+
   return (
     <nav className="nav" aria-label="Shop categories">
       <ul className="nav-filters">
@@ -19,9 +24,29 @@ function NavBar({ filter, onFilter }) {
         ))}
       </ul>
 
-      <button type="button" className="nav-bag">
+      <div className="nav-currency" role="group" aria-label="Pay in">
+        {CURRENCIES.map((c) => (
+          <button
+            type="button"
+            key={c.code}
+            aria-pressed={currency === c.code}
+            aria-label={c.label}
+            className={currency === c.code ? "active" : ""}
+            onClick={() => setCurrency(c.code)}
+          >
+            {c.symbol}
+          </button>
+        ))}
+      </div>
+
+      <button
+        type="button"
+        className="nav-bag"
+        onClick={openCart}
+        aria-label={count > 0 ? `Bag, ${count} items` : "Bag"}
+      >
         <span className="nav-dot" aria-hidden="true" />
-        Bag
+        Bag{count > 0 ? ` (${count})` : ""}
       </button>
     </nav>
   );

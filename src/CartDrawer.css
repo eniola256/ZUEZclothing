@@ -1,0 +1,268 @@
+.cart-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+
+  background: rgba(0, 0, 0, 0.6);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.cart-overlay.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.cart {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 2001;
+
+  display: flex;
+  flex-direction: column;
+
+  width: min(440px, 100vw);
+  height: 100vh;
+  height: 100dvh;
+
+  background: var(--ink);
+  border-left: 1px solid var(--line);
+
+  transform: translateX(100%);
+  visibility: hidden;
+  transition:
+    transform 0.45s var(--ease),
+    visibility 0s linear 0.45s;
+}
+
+.cart.is-open {
+  transform: none;
+  visibility: visible;
+  transition:
+    transform 0.45s var(--ease),
+    visibility 0s;
+}
+
+/* ============================
+   HEAD
+   ============================ */
+
+.cart-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+
+  min-height: 56px;
+  padding: 0 1.25rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.cart-title {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 1.75rem;
+  letter-spacing: -0.02em;
+}
+
+.cart-close,
+.cart-link,
+.cart-remove {
+  min-height: 44px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  transition: color 0.2s ease;
+}
+
+.cart-close:hover,
+.cart-link:hover,
+.cart-remove:hover {
+  color: var(--flash);
+}
+
+/* ============================
+   EMPTY
+   ============================ */
+
+.cart-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+  padding: 2rem 1.25rem;
+}
+
+.cart-empty-title {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 2rem;
+  line-height: 1.05;
+}
+
+/* ============================
+   LINES
+   ============================ */
+
+.cart-lines {
+  flex: 1;
+  overflow-y: auto;
+  list-style: none;
+  padding: 0 1.25rem;
+}
+
+.cart-line {
+  display: grid;
+  grid-template-columns: 72px 1fr auto;
+  gap: 1rem;
+  padding: 1.25rem 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.cart-thumb {
+  display: block;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  background: url("/cloth-bg.jpg") center / cover;
+}
+
+.cart-thumb img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.cart-line-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.25rem;
+  min-width: 0;
+}
+
+.cart-line-name {
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  line-height: 1.35;
+  text-decoration: none;
+}
+
+.cart-line-name:hover {
+  color: var(--flash);
+}
+
+.cart-line-meta {
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.cart-line-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.cart-qty {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--line);
+}
+
+.cart-qty button {
+  width: 44px;
+  height: 44px;
+}
+
+.cart-qty button:hover:not(:disabled) {
+  color: var(--flash);
+}
+
+.cart-qty button:disabled {
+  color: var(--line);
+  cursor: not-allowed;
+}
+
+.cart-qty output {
+  min-width: 2rem;
+  text-align: center;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.cart-line-price {
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+}
+
+/* ============================
+   FOOT
+   ============================ */
+
+.cart-foot {
+  padding: 1.25rem;
+  border-top: 1px solid var(--line);
+}
+
+.cart-subtotal {
+  display: flex;
+  justify-content: space-between;
+
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.cart-note {
+  margin-top: 0.4rem;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.cart-checkout {
+  width: 100%;
+  min-height: 56px;
+  margin-top: 1.25rem;
+
+  background: var(--bone);
+  color: var(--ink);
+
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  transition: background 0.2s ease;
+}
+
+.cart-checkout:hover {
+  background: var(--flash);
+}
+
+.cart-notice {
+  margin-top: 0.75rem;
+  font-size: 0.85rem;
+  color: var(--flash);
+}
+
+/* ============================
+   REDUCED MOTION
+   ============================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .cart,
+  .cart.is-open,
+  .cart-overlay {
+    transition: none;
+  }
+}

@@ -70,3 +70,30 @@
   border-radius: 50%;
   background: var(--flash);
 }
+
+/* ₦ / $ switch */
+.nav-currency {
+  display: flex;
+  flex: none;
+  margin-left: auto;
+  border: 1px solid var(--line);
+}
+
+.nav-currency button {
+  min-width: 40px;
+  min-height: 34px;
+  padding: 0 0.6rem;
+  font-size: 0.85rem;
+  letter-spacing: 0;
+  color: var(--muted);
+  transition: color 0.2s ease, background 0.2s ease;
+}
+
+.nav-currency button.active {
+  background: var(--bone);
+  color: var(--ink);
+}
+
+.nav-currency button:not(.active):hover {
+  color: var(--flash);
+}
