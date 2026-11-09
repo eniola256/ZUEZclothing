@@ -8,6 +8,7 @@ import Loader from "./Loader.jsx";
 import ProductPage from "./ProductPage.jsx";
 import CartDrawer from "./CartDrawer.jsx";
 import CheckoutPage from "./CheckoutPage.jsx";
+import OrderPage from "./OrderPage.jsx";
 import { CartProvider } from "./CartContext.jsx";
 import { ProductsProvider } from "./ProductsContext.jsx";
 import { CurrencyProvider } from "./CurrencyContext.jsx";
@@ -100,6 +101,8 @@ function Site() {
         <ProductPage id={route.id} onBack={goToShop} />
       ) : route.name === "checkout" ? (
         <CheckoutPage onBack={goToShop} />
+      ) : route.name === "order" ? (
+        <OrderPage reference={route.ref} onBack={goToShop} />
       ) : (
         <>
           <Hero isLoading={loading} />

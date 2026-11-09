@@ -16,7 +16,7 @@ const EMPTY = {
 };
 
 function CheckoutPage({ onBack }) {
-  const { lines, subtotal, clear, openCart } = useCart();
+  const { lines, subtotal, openCart } = useCart();
   const { currency, money } = useCurrency();
 
   const [zones, setZones] = useState([]);
@@ -25,7 +25,6 @@ function CheckoutPage({ onBack }) {
   const [form, setForm] = useState(EMPTY);
   const [sending, setSending] = useState(false);
   const [error, setError] = useState("");
-  const [placed, setPlaced] = useState(null);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -72,14 +71,14 @@ function CheckoutPage({ onBack }) {
         })),
       });
 
-      setPlaced({ ...order, email: form.email });
-      clear(); // the order now exists on the server
-      window.scrollTo({ top: 0, behavior: "instant" });
+      // Off to the gateway's secure payment page. We leave the bag alone
+      // until the payment is confirmed, so cancelling doesn't lose it.
+      window.location.assign(order.paymentUrl);
+      return; // keep the button disabled while the browser leaves
     } catch (err) {
       setError(err.message);
-    } finally {
-      setSending(false);
     }
+    setSending(false);
   };
 
   const back = (
@@ -94,32 +93,6 @@ function CheckoutPage({ onBack }) {
       ← The collection
     </a>
   );
-
-  // ───────── after the order is created ─────────
-  if (placed) {
-    return (
-      <main className="checkout">
-        {back}
-        <p className="kicker">Order {placed.ref}</p>
-        <h1 className="checkout-title">Your order is reserved.</h1>
-
-        <div className="checkout-done">
-          <p>
-            Total <strong>{money(placed.total, placed.currency)}</strong> (delivery{" "}
-            {money(placed.shippingFee, placed.currency)} included).
-          </p>
-          <p>
-            We&apos;re holding your pieces for 15 minutes. Details will be sent to{" "}
-            <strong>{placed.email}</strong>.
-          </p>
-          <p className="checkout-hint">
-            Payment isn&apos;t connected yet, so nothing has been charged. That&apos;s
-            the next step we&apos;re building.
-          </p>
-        </div>
-      </main>
-    );
-  }
 
   // ───────── empty bag ─────────
   if (lines.length === 0) {
@@ -301,12 +274,13 @@ function CheckoutPage({ onBack }) {
           )}
 
           <button type="submit" className="pdp-add" disabled={sending || !zone}>
-            {sending ? "Placing order…" : `Place order · ${money(total)}`}
+            {sending ? "Taking you to payment…" : `Pay ${money(total)}`}
           </button>
 
           <p className="checkout-hint">
-            Prices are checked again on our server. Switch ₦ / $ at the top to pay in
-            Naira or Dollars.
+            You&apos;ll pay on a secure page, then come straight back here. Prices are
+            checked again on our server. Switch ₦ / $ at the top to pay in Naira or
+            Dollars.
           </p>
         </aside>
       </form>
