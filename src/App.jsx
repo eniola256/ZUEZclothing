@@ -9,6 +9,7 @@ import ProductPage from "./ProductPage.jsx";
 import CartDrawer from "./CartDrawer.jsx";
 import CheckoutPage from "./CheckoutPage.jsx";
 import OrderPage from "./OrderPage.jsx";
+import AdminPage from "./AdminPage.jsx";
 import { CartProvider } from "./CartContext.jsx";
 import { ProductsProvider } from "./ProductsContext.jsx";
 import { CurrencyProvider } from "./CurrencyContext.jsx";
@@ -22,7 +23,8 @@ const scrollToShop = () =>
     ?.scrollIntoView({ behavior: "smooth", block: "start" });
 
 function Site() {
-  const [loading, setLoading] = useState(true);
+  // the intro animation is skipped when you open the admin straight away
+  const [loading, setLoading] = useState(() => !/^#\/admin/.test(window.location.hash));
   const [filter, setFilter] = useState("all");
 
   const route = useRoute();
@@ -90,6 +92,8 @@ function Site() {
       requestAnimationFrame(() => jumpTo(homeScrollY.current));
     }
   }, [route]);
+
+  if (route.name === "admin") return <AdminPage />;
 
   return (
     <>

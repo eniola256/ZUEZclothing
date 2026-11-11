@@ -32,3 +32,11 @@ export function matchesFilter(product, filter) {
   if (filter === "new") return product.isNew;
   return product.cat === filter;
 }
+
+// Photos uploaded through the admin live on Cloudinary. This asks Cloudinary for a
+// smaller, modern-format copy (faster pages). Other links are left as they are.
+export function optimizeImage(url, width = 1000) {
+  if (!url || !url.includes("res.cloudinary.com") || !url.includes("/upload/")) return url;
+  if (/\/upload\/[a-z]_/.test(url)) return url; // already has a transformation
+  return url.replace("/upload/", `/upload/f_auto,q_auto,w_${width}/`);
+}

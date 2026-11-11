@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { getProducts } from "./api.js";
+import { optimizeImage } from "./products.js";
 import { ProductsContext } from "./productsState.js";
 
 const SIZE_ORDER = ["XXS", "XS", "S", "M", "L", "XL", "XXL", "XXXL"];
@@ -14,7 +15,7 @@ function toProduct(row) {
     id: v.id,
     label: v.label,
     color: v.color || undefined,
-    img: v.images?.[0] ?? "",
+    img: optimizeImage(v.images?.[0] ?? ""),
     stock: v.stock ?? {},
   }));
 
@@ -61,7 +62,10 @@ export function ProductsProvider({ children }) {
     setAttempt((n) => n + 1);
   }, []);
 
-  const value = useMemo(() => ({ ...state, retry }), [state, retry]);
+  // quietly reload the clothes (used by the admin after a change)
+  const refresh = useCallback(() => setAttempt((n) => n + 1), []);
+
+  const value = useMemo(() => ({ ...state, retry, refresh }), [state, retry, refresh]);
 
   return <ProductsContext.Provider value={value}>{children}</ProductsContext.Provider>;
 }

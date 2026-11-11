@@ -4,8 +4,10 @@ import { useEffect, useState } from "react";
 //   #/                    -> home
 //   #/product/<slug>      -> product page
 //   #/checkout            -> checkout
+//   #/admin               -> owner admin (password protected)
 //   #/order/<ref>         -> "did my payment go through?" page
 const PRODUCT_ROUTE = /^#\/product\/([a-z0-9-]+)\/?$/;
+const ADMIN_ROUTE = /^#\/admin\/?$/;
 const CHECKOUT_ROUTE = /^#\/checkout\/?$/;
 // Bachs adds ?checkout_id=... to the return address, so allow a query on the end
 const ORDER_ROUTE = /^#\/order\/([A-Za-z0-9-]+)\/?(\?.*)?$/;
@@ -15,6 +17,7 @@ function parse() {
   const product = PRODUCT_ROUTE.exec(hash);
   if (product) return { name: "product", id: product[1] };
   if (CHECKOUT_ROUTE.test(hash)) return { name: "checkout" };
+  if (ADMIN_ROUTE.test(hash)) return { name: "admin" };
   const order = ORDER_ROUTE.exec(hash);
   if (order) return { name: "order", ref: order[1].toUpperCase() };
   return { name: "home" };
