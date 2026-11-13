@@ -13,7 +13,6 @@ function Shop({ filter, onFilter }) {
   const { money, priceOf } = useCurrency();
 
   const visible = products.filter((p) => matchesFilter(p, filter));
-  const isCollage = filter === "all";
   const title =
     filter === "all"
       ? "The collection"
@@ -43,14 +42,19 @@ function Shop({ filter, onFilter }) {
     return () => observer.disconnect();
   }, [filter, status]);
 
+  // nothing left in any style or size
+  const isSoldOut = (product) =>
+    product.variants.every((v) => Object.values(v.stock).every((q) => q <= 0));
+
   const renderProduct = (product, index) => (
     <a
-      className={`product p-${index + 1}`}
+      className={`product ${isSoldOut(product) ? "is-soldout" : ""}`}
       key={product.id}
       href={productHref(product.id)}
-      style={{ "--delay": `${(index % 3) * 0.12}s` }}
+      style={{ "--delay": `${(index % 4) * 0.1}s` }}
     >
       <div className="product-image">
+        {isSoldOut(product) && <span className="product-flag">Sold out</span>}
         <img className="img-bg" src={product.img} alt={product.name} />
 
         <img
@@ -98,9 +102,7 @@ function Shop({ filter, onFilter }) {
         )}
 
         {status === "ready" && (
-          <div className={`shop-grid ${isCollage ? "is-collage" : "is-list"}`}>
-            {visible.map(renderProduct)}
-          </div>
+          <div className="shop-grid">{visible.map(renderProduct)}</div>
         )}
       </section>
 
